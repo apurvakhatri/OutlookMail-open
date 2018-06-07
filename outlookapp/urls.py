@@ -15,9 +15,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from records.views import redirectToYellowAntAuthenticationPage, yellowantredirecturl, get_signin_url, gettoken, integrate_app_account, yellowant_api
+from django.conf.urls import url
+from django.conf.urls import include
+from lib.web import urls as web_urls
+from lib.records.views import redirectToYellowAntAuthenticationPage, yellowantredirecturl, get_signin_url, gettoken, \
+    integrate_app_account, yellowant_api, webhook
 
 urlpatterns = [
+    path('', include(web_urls)),
     path('admin/', admin.site.urls),
     path('yellowantauthurl/', redirectToYellowAntAuthenticationPage),
     path('redirecturl/', yellowantredirecturl),
@@ -25,6 +30,7 @@ urlpatterns = [
     path('outlookredirect/',gettoken),
     path('outlookredirecttoken/',gettoken),
     path("integrate_app/",integrate_app_account),
-    path("apiurl/",yellowant_api)
+    path("apiurl/",yellowant_api),
+    url('webhook/(?P<hash_str>[^/]+)/$', webhook, name='webhook')
 
 ]

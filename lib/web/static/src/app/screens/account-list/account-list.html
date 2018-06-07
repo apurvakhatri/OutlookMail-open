@@ -1,0 +1,52 @@
+<div class="layout-container">
+  <section class="mb4" layout="column" layout-align="start center">
+    <h1>Outook Mail</h1>
+    <!--<img src="https://cdn.smassets.net/assets/anonweb/smlib.globaltemplates/7.0.0/assets/logo/surveymonkey_logo.svg" height="981" width="292">-->
+
+    <md-button target="_blank" ng-if="$ctrl.userAccounts" ng-href="/yellowantauthurl" class="md-accent md-raised" layout="row">Add Account
+    </md-button>
+  </section>
+
+  <section layout="column" layout-align="start center">
+    <md-list class="mw7 w-100" ng-if="$ctrl.userAccounts">
+      <md-list-item ng-repeat="account in $ctrl.userAccounts track by $index">
+        <md-card class="w-100 has-hidden-action-buttons">
+          <md-content class="pa3" layout="row" layout-align="space-between center" ng-if="account.app_authenticated">
+            <a class="mb0">
+              <div><b>YellowAnt Invoke Name:</b> {{ ::account.user_invoke_name }}</div>
+              <!--<div><b>Repository Webhooks for YellowAnt:</b> {{ ::account.webhooks_count }}</div>-->
+            </a>
+            <a ng-if="account.app_authenticated" md-button class="md-primary md-raised hidden-action-buttons"  ng-click="$ctrl.onDeleteAccount(account)">Delete</a>
+          </md-content>
+          <md-content class="pa3" layout="row" layout-align="space-between center" ng-if="!account.app_authenticated">
+            <div class="mb0">
+              <h4 class="f3 mb2" md-colors="::{ color: 'accent'}" style="font-size:100%;">Outlook Mail Account Not Integrated</h4>
+              <div><b>YellowAnt Invoke Name:</b> {{ ::account.user_invoke_name }}</div>
+            </div>
+            <a ng-if="!account.app_authenticated" md-button class="md-primary md-raised hidden-action-buttons"  ng-click="$ctrl.onDeleteAccount(account)">Delete</a>
+            <a ng-if="!account.app_authenticated" md-button class="md-primary md-raised hidden-action-buttons" ng-href="/integrate_app?id={{account.id}}" target="_self">Integrate</a>
+          </md-content>
+        </md-card>
+      </md-list-item>
+    </md-list>
+    <div ng-if="!$ctrl.userAccounts" class="mw7 w-100">
+      <div class="mb3"><i>
+        Outlook people is an online address book integrated with Outlook mail.
+      </i></div>
+      <div layout="row" layout-align="center" class="mb4">
+        <!--<img class="app-logo" src="https://cdn.smassets.net/assets/anonweb/smlib.globaltemplates/7.0.0/assets/logo/surveymonkey_logo.svg" />-->
+      </div>
+      <div>
+        The Outlook Mail integration for YellowAnt allows you to manage your account in the following ways:
+        <ul>
+          <li>Get user details</li>
+          <li>Get New Mail Notifications</li>
+          <li>Get Messages by folder</li>
+          <li>Reply or Forward a message</li>
+          <li>Create mail</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+</div>

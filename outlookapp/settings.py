@@ -11,10 +11,12 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
+import json
 
+data = open('yellowant_app_credentials.json').read()
+data_json = json.loads(data)
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
@@ -26,11 +28,15 @@ SECRET_KEY = 'doq%!&koou%fd7l#)w@4gai-xw%s+gvl&m^^8us(l-h6hoxjbo'
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
-BASE_URL = "https://50c802dc.ngrok.io/"
+BASE_URL = "https://c152c92f.ngrok.io/"
 
 
-OUTLOOK_CLIENT_ID = "1ac528f3-cea9-47a7-b2d1-c0edc3ff7d81"
-OUTLOOK_CLIENT_SECRET = "huurzlBUYS7289(~tCHO3-:"
+# OUTLOOK_CLIENT_ID = "1ac528f3-cea9-47a7-b2d1-c0edc3ff7d81"
+# OUTLOOK_CLIENT_SECRET = "huurzlBUYS7289(~tCHO3-:"
+# OUTLOOK_CLIENT_ID = "a0a6e347-2813-4d2c-971d-4690f5e8c515"
+# OUTLOOK_CLIENT_SECRET = "jijpFAGNT6knyLN2933|^+["
+OUTLOOK_CLIENT_ID = "f5fa45b4-0498-4ea4-9774-201deb5ffe77"
+OUTLOOK_CLIENT_SECRET = "scmgtTFJ2}zgJQTN3459{#)"
 
 # OUTLOOK_CLIENT_ID = "7ca2a08b-4516-4f8c-8bb6-3635796979ab"
 # OUTLOOK_CLIENT_SECRET = "zchlfxDAV0*=lVOSI3133$~"
@@ -38,11 +44,14 @@ OUTLOOK_REDIRECT_URL = BASE_URL + "outlookauthurl/"
 
 OUTLOOK_REDIRECT = BASE_URL + "outlookredirecttoken/"
 
-
 YA_OAUTH_URL = "https://www.yellowant.com/api/oauth2/authorize/"
-YA_CLIENT_ID = os.environ.get("YA_CLIENT_ID", "iF09cplE1OAqmrwchtbztkqKAViAHZLDF77DlyuW")
-YA_CLIENT_SECRET = os.environ.get("YA_CLIENT_SECRET", "XX7Dea5lQtLt6ZwBqBzPNklfyz5vbBUm8GXqs6uwBIsXnYyqLEkq561vRGQnsBahobRmeEEA5SVtKQan4cImoIUxhIaRNSY3Y6hB2hjA29T5I6Wqa4oVcfZMiwms1piT")
-YA_VERIFICATION_TOKEN = os.environ.get("YA_VERIFICATION_TOKEN", "mMVtsiaKNOGmZUbeRIbkrMTuaX15wkpnNXsaG5zTwQvmMvTWT4rps2pzHZn6M3HXCS9Y20I7p3LMfAipWAADuDFmXymiOWqADLMrw3CUOxagsEN3wHexutVUbh8n4r6p")
+YA_CLIENT_ID = str(data_json['client_id'])
+YA_CLIENT_SECRET = str(data_json['client_secret'])
+YA_VERIFICATION_TOKEN = str(data_json['verification_token'])
+# YA_CLIENT_ID = os.environ.get("YA_CLIENT_ID", "iF09cplE1OAqmrwchtbztkqKAViAHZLDF77DlyuW")
+# YA_CLIENT_SECRET = os.environ.get("YA_CLIENT_SECRET", "XX7Dea5lQtLt6ZwBqBzPNklfyz5vbBUm8GXqs6uwBIsXnYyqLEkq561vRGQnsBahobRmeEEA5SVtKQan4cImoIUxhIaRNSY3Y6hB2hjA29T5I6Wqa4oVcfZMiwms1piT")
+# YA_VERIFICATION_TOKEN = os.environ.get("YA_VERIFICATION_TOKEN", "mMVtsiaKNOGmZUbeRIbkrMTuaX15wkpnNXsaG5zTwQvmMvTWT4rps2pzHZn6M3HXCS9Y20I7p3LMfAipWAADuDFmXymiOWqADLMrw3CUOxagsEN3wHexutVUbh8n4r6p")
+
 YA_REDIRECT_URL = BASE_URL + "redirecturl/"
 # Application definition
 
@@ -53,7 +62,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'records.apps.RecordsConfig'
+    'lib.records',
+    'lib.web'
 ]
 
 MIDDLEWARE = [
@@ -93,7 +103,7 @@ WSGI_APPLICATION = 'outlookapp.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'outlookapp',
+        'NAME': 'outlookmailapp',
         'USER': 'root',
         'PASSWORD': 'khatri@19',
         'HOST': 'localhost',

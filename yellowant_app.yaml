@@ -1,0 +1,204 @@
+api_url: https://c152c92f.ngrok.io/apiurl/
+creator_email: apurvakhatri2011@gmail.com
+documentation_url: https://www.yellowant.com/document
+functions:
+  create_message:
+    function_type: 1
+    input_args:
+      Subject:
+        arg_type: 14
+        description: Subject of the message
+        example: Did you see last night's game?
+        name: Subject
+        required: 1
+      body:
+        arg_type: 14
+        description: Body of the message
+        example: They were awesome!
+        name: body
+        required: 1
+      toRecipients:
+        arg_type: 14
+        description: The recipients email address
+        example: apurvakhatri2011@gmail.com
+        name: toRecipients
+        required: 1
+    invoke_name: create_message
+    is_active: 1
+    max_retries: 0
+    name: Compose
+    output_keys: {}
+    privacy_mode: 0
+    rate_limited: 0
+    short_description: Creates a new message
+    user_rate_limit: 0.0
+  create_subscription:
+    function_type: 1
+    input_args: {}
+    invoke_name: create_subscription
+    is_active: 0
+    max_retries: 0
+    name: Create Subscription
+    output_keys: {}
+    privacy_mode: 0
+    rate_limited: 0
+    short_description: Creates a subscrition
+    user_rate_limit: 0.0
+  forward_message:
+    function_type: 1
+    input_args:
+      Message:
+        arg_type: 14
+        description: Body of the message
+        example: Hey here is the documentation!!
+        name: Message
+        required: 1
+      Message-Id:
+        arg_type: 14
+        description: The id of the message
+        example: '121243241424124'
+        name: Message-Id
+        required: 1
+      toRecipients:
+        arg_type: 14
+        description: Address of the users.
+        example: apurvakhatri2011@gmail.com
+        name: toRecipients
+        required: 1
+    invoke_name: forward_message
+    is_active: 0
+    max_retries: 0
+    name: Forward
+    output_keys: {}
+    privacy_mode: 0
+    rate_limited: 0
+    short_description: Forwards a particular message
+    user_rate_limit: 0.0
+  get_message_byfolder:
+    function_type: 1
+    input_args:
+      Folder-Name:
+        arg_type: 14
+        description: The name of the folder
+        example: Archive
+        name: Folder-Name
+        required: 1
+    invoke_name: get_message_byfolder
+    is_active: 1
+    max_retries: 0
+    name: Folder Messages
+    output_keys: {}
+    privacy_mode: 0
+    rate_limited: 0
+    short_description: Displays the messages of the selected folder
+    user_rate_limit: 0.0
+  get_my_messages:
+    function_type: 1
+    input_args: {}
+    invoke_name: get_my_messages
+    is_active: 1
+    max_retries: 0
+    name: Inbox
+    output_keys: {}
+    privacy_mode: 0
+    rate_limited: 0
+    short_description: Displays users messages
+    user_rate_limit: 0.0
+  inbox_webhook:
+    function_type: 2
+    input_args: {}
+    invoke_name: inbox_webhook
+    is_active: 0
+    max_retries: 0
+    name: Inbox webhook
+    output_keys: {}
+    privacy_mode: 0
+    rate_limited: 0
+    short_description: Triggers a notification whenever a new message comes.
+    user_rate_limit: 0.0
+  list_messages:
+    function_type: 1
+    input_args: {}
+    invoke_name: list_messages
+    is_active: 0
+    max_retries: 0
+    name: List Messages
+    output_keys: {}
+    privacy_mode: 0
+    rate_limited: 0
+    short_description: Get the messages in the signed-in user's mailbox (including
+      the Deleted Items and Clutter folders).
+    user_rate_limit: 0.0
+  mail_folder:
+    function_type: 1
+    input_args: {}
+    invoke_name: mail_folder
+    is_active: 0
+    max_retries: 0
+    name: MailFolder
+    output_keys:
+      _keys:
+        displayName: '__unicode:    Display name'
+        id: '__unicode:    Id'
+        parentFolderId: '__unicode:    Parent folder id'
+        values: '[values]:  List of Values'
+      values:
+        displayName: '__unicode:  Values display name'
+        id: '__unicode:  Values id'
+        parentFolderId: '__unicode:  Values parent folder id'
+    privacy_mode: 0
+    rate_limited: 0
+    short_description: Gives the relation between folder id and folder name
+    user_rate_limit: 0.0
+  reply:
+    function_type: 1
+    input_args:
+      Message:
+        arg_type: 14
+        description: Reply message
+        example: Hey here is the coffee
+        name: Message
+        required: 1
+      Message-Id:
+        arg_type: 14
+        description: Message Id.
+        example: ef1412312421
+        name: Message-Id
+        required: 1
+    invoke_name: reply
+    is_active: 0
+    max_retries: 0
+    name: Reply
+    output_keys: {}
+    privacy_mode: 0
+    rate_limited: 0
+    short_description: Reply to the message
+    user_rate_limit: 0.0
+  user_details:
+    function_type: 1
+    input_args: {}
+    invoke_name: user_details
+    is_active: 1
+    max_retries: 0
+    name: User Details
+    output_keys: {}
+    privacy_mode: 0
+    rate_limited: 0
+    short_description: It gives the user details.
+    user_rate_limit: 0.0
+icon_url: https://yellow1hq.yellowant.com/developers/
+install_page_url: https://www.yellowant.com
+invoke_name: outlook
+is_active: 1
+is_production_or_sandbox: 0
+long_description: ''
+name: Outlook Mail
+privacy_policy_url: https://www.yellowant.com/privacy
+rate_limit: 0.0
+rate_limited: 0
+redirect_uris: https://c152c92f.ngrok.io/redirecturl/
+short_description: Outlook.com is a web-based suite of webmail, contacts, tasks, and
+  calendaring services from Microsoft.
+user_rate_limit: 0.0
+visibility_scope: 0
+website: https://www.yellowant.com
