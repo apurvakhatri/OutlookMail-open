@@ -3,7 +3,7 @@
     <h1>Outook Mail</h1>
     <!--<img src="https://cdn.smassets.net/assets/anonweb/smlib.globaltemplates/7.0.0/assets/logo/surveymonkey_logo.svg" height="981" width="292">-->
 
-    <md-button target="_blank" ng-if="$ctrl.userAccounts" ng-href="/yellowantauthurl" class="md-accent md-raised" layout="row">Add Account
+    <md-button target="_blank" ng-if="$ctrl.userAccounts" ng-href="yellowantauthurl/" class="md-accent md-raised" layout="row">Add Account
     </md-button>
   </section>
 
@@ -24,7 +24,7 @@
               <div><b>YellowAnt Invoke Name:</b> {{ ::account.user_invoke_name }}</div>
             </div>
             <a ng-if="!account.app_authenticated" md-button class="md-primary md-raised hidden-action-buttons"  ng-click="$ctrl.onDeleteAccount(account)">Delete</a>
-            <a ng-if="!account.app_authenticated" md-button class="md-primary md-raised hidden-action-buttons" ng-href="/integrate_app?id={{account.id}}" target="_self">Integrate</a>
+            <a ng-if="!account.app_authenticated" md-button class="md-primary md-raised hidden-action-buttons" ng-href="integrate_app?id={{account.id}}" target="_self">Integrate</a>
           </md-content>
         </md-card>
       </md-list-item>

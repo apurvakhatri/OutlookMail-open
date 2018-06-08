@@ -3,18 +3,22 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from yellowant import YellowAnt
 from ..records.models import YellowUserToken
+from django.conf import settings
 
 
-def index(request):
+def index(request, path=""):
     print("in index")
     context = {
         "user_integrations": []
     }
     if request.user.is_authenticated:
         user_integrations = YellowUserToken.objects.filter(user=request.user.id)
-        for user_integration in user_integrations:
-            print(user_integration)
-            context["user_integrations"].append(user_integration)
+        # for user_integration in user_integrations:
+        #     print(user_integration)
+        #     context["user_integrations"].append(user_integration)
+    context = {"base_href": "/market/applications/10/",
+               "application_id": settings.YA_APP_ID,
+               "ya_redirect": "/market/applications/10/yellowantauthurl"}
     print("returning from index")
     return render(request, "home.html", context)
 

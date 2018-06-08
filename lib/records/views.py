@@ -93,7 +93,7 @@ def yellowantredirecturl(request):
     # print(y._get_error_message())
     # # print(y._last_call.status_code)
     # # print(y.get_lastfunction_header("status_code"))
-    # # print(access_token_dict)
+    print(access_token_dict)
     access_token = access_token_dict['access_token']
     yellowant_user = YellowAnt(access_token=access_token)
     profile = yellowant_user.get_user_profile()
@@ -105,7 +105,7 @@ def yellowantredirecturl(request):
                                         yellowant_intergration_id=user_integration['user_application']
                                        )
 
-    return HttpResponseRedirect("/integrate_app?id={}".format(str(ut.id)))
+    return HttpResponseRedirect(settings.BASE_URL+"integrate_app?id={}".format(str(ut.id)))
 
 def integrate_app_account(request):
     print("In integrate_app_account")
