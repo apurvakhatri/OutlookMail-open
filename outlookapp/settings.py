@@ -44,7 +44,7 @@ if DEV_ENV=="DEV":
 elif DEV_ENV=="HEROKU":
     BASE_URL = "https://{}.herokuapp.com/".format(app_name)
     OUTLOOK_CLIENT_ID = os.environ.get('OM_CLIENT_ID')
-    OUTLOOK_CLIENT_SECRET = os.environ.get('OM_CLIENT_ID')
+    OUTLOOK_CLIENT_SECRET = os.environ.get('OM_CLIENT_SECRET')
     app_name = os.environ.get("HEROKU_APP_NAME")
 
 OUTLOOK_REDIRECT_URL = BASE_URL + "outlookauthurl/"
