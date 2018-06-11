@@ -122,7 +122,7 @@ class CommandCenter(object):
             self.refresh_token = refresh_token
             self.access_token = access_token
 
-        if self.subscription_update + datetime.timedelta(minutes=1) < pytz.utc.localize(datetime.datetime.utcnow()):
+        if self.subscription_update + datetime.timedelta(minutes=57) < pytz.utc.localize(datetime.datetime.utcnow()):
             graph_endpoint1 = "https://outlook.office.com/api/v2.0{}"
             get_updatewehbhook_url = graph_endpoint1.format('/me/subscriptions/{}'.format(self.subscription_id))
 

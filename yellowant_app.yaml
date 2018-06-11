@@ -1,4 +1,4 @@
-api_url: http://94b36cbe.ngrok.io/
+api_url: https://c152c92f.ngrok.io/apiurl/
 creator_email: apurvakhatri2011@gmail.com
 documentation_url: https://www.yellowant.com/document
 functions:
@@ -138,14 +138,14 @@ functions:
     name: MailFolder
     output_keys:
       _keys:
-        displayName: '__unicode: Display name'
-        id: '__unicode: Id'
-        parentFolderId: '__unicode: Parent folder id'
-        values: '[values]: List of Values'
+        displayName: '__unicode:    Display name'
+        id: '__unicode:    Id'
+        parentFolderId: '__unicode:    Parent folder id'
+        values: '[values]:  List of Values'
       values:
-        displayName: '__unicode: Values display name'
-        id: '__unicode: Values id'
-        parentFolderId: '__unicode: Values parent folder id'
+        displayName: '__unicode:  Values display name'
+        id: '__unicode:  Values id'
+        parentFolderId: '__unicode:  Values parent folder id'
     privacy_mode: 0
     rate_limited: 0
     short_description: Gives the relation between folder id and folder name
@@ -190,15 +190,15 @@ icon_url: https://yellow1hq.yellowant.com/developers/
 install_page_url: https://www.yellowant.com
 invoke_name: outlook
 is_active: 1
-is_production_or_sandbox: 1
+is_production_or_sandbox: 0
 long_description: ''
 name: Outlook Mail
 privacy_policy_url: https://www.yellowant.com/privacy
 rate_limit: 0.0
 rate_limited: 0
-redirect_uris: http://94b36cbe.ngrok.io
+redirect_uris: https://c152c92f.ngrok.io/redirecturl/
 short_description: Outlook.com is a web-based suite of webmail, contacts, tasks, and
   calendaring services from Microsoft.
 user_rate_limit: 0.0
-visibility_scope: 2
+visibility_scope: 0
 website: https://www.yellowant.com
