@@ -1,2 +1,2 @@
 release: python manage.py migrate
-web: gunicorn surveymonkeyapp.wsgi
+web: gunicorn outlookapp.wsgi

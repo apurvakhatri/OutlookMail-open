@@ -12,11 +12,11 @@
       "required": true
     },
     "OM_CLIENT_ID": {
-      "description": "SurveyMonkey Client ID",
+      "description": "OutlookMail Client ID",
       "required": true
     },
     "OM_CLIENT_SECRET": {
-      "description": "SurveyMonkey Client Secret",
+      "description": "OutlookMail Client Secret",
       "required": true
     },
     "DISABLE_COLLECTSTATIC": {
