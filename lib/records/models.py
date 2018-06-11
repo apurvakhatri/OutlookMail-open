@@ -19,6 +19,7 @@ class YellowUserToken(models.Model):
 class YellowAntRedirectState(models.Model):
     user = models.IntegerField()
     state = models.CharField(max_length = 512, null = False)
+    subdomain = models.CharField(max_length=128)
 
 class AppRedirectState(models.Model):
     user_integration = models.ForeignKey(YellowUserToken, on_delete=models.CASCADE)
