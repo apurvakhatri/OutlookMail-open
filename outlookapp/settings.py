@@ -25,23 +25,35 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'doq%!&koou%fd7l#)w@4gai-xw%s+gvl&m^^8us(l-h6hoxjbo'
 
 # SECURITY WARNING: don't run with debug turned on in production!
+app_name = os.environ.get("HEROKU_APP_NAME")
+BASE_URL = "https://{}.herokuapp.com".format(app_name)
+ALLOWED_HOSTS = ['*', '{}.herokuapp.com'.format(app_name)]
+
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
 
-BASE_URL = "https://c152c92f.ngrok.io/"
-BASE_HREF = ""
-SITE_PROTOCOL = "https://"
-SITE_DOMAIN_URL = "c152c92f.ngrok.io"
+BASE_HREF = "/"
+SITE_PROTOCOL = "http://"
+SITE_DOMAIN_URL = "ngrok.io"
 
 
+if DEV_ENV=="DEV":
+    OUTLOOK_CLIENT_ID = "f5fa45b4-0498-4ea4-9774-201deb5ffe77"
+    OUTLOOK_CLIENT_SECRET = "scmgtTFJ2}zgJQTN3459{#)"
+    BASE_URL = "https://ff5fb00d.ngrok.io/"
+elif DEV_ENV=="HEROKU":
+    BASE_URL = "https://{}.herokuapp.com/".format(app_name)
+    OUTLOOK_CLIENT_ID = os.environ.get('OM_CLIENT_ID')
+    OUTLOOK_CLIENT_SECRET = os.environ.get('OM_CLIENT_ID')
+    app_name = os.environ.get("HEROKU_APP_NAME")
 
-OUTLOOK_CLIENT_ID = "f5fa45b4-0498-4ea4-9774-201deb5ffe77"
-OUTLOOK_CLIENT_SECRET = "scmgtTFJ2}zgJQTN3459{#)"
 OUTLOOK_REDIRECT_URL = BASE_URL + "outlookauthurl/"
 OUTLOOK_REDIRECT = BASE_URL + "outlookredirecttoken/"
 
 YA_OAUTH_URL = "https://www.yellowant.com/api/oauth2/authorize/"
+#YA_APP_ID defined
+YA_APP_ID = str(data_json['application_id'])
+
 YA_CLIENT_ID = str(data_json['client_id'])
 YA_CLIENT_SECRET = str(data_json['client_secret'])
 YA_VERIFICATION_TOKEN = str(data_json['verification_token'])
@@ -61,6 +73,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -103,6 +116,11 @@ DATABASES = {
         'PORT': '',
     }
 }
+if DEV_ENV=="HEROKU":
+    import dj_database_url
+    db_from_env = dj_database_url.config()
+    DATABASES['default'].update(db_from_env)
+    DATABASES['default']['CONN_MAX_AGE'] = 500
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
@@ -141,3 +159,5 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
