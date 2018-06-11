@@ -16,9 +16,9 @@ def index(request, path=""):
         # for user_integration in user_integrations:
         #     print(user_integration)
         #     context["user_integrations"].append(user_integration)
-    context = {"base_href": "/market/applications/10/",
+    context = {"base_href": settings.BASE_HREF,
                "application_id": settings.YA_APP_ID,
-               "ya_redirect": "/market/applications/10/yellowantauthurl"}
+               }
     print("returning from index")
     return render(request, "home.html", context)
 
