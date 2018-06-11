@@ -19,6 +19,7 @@ def index(request, path=""):
     context = {"base_href": settings.BASE_HREF,
                "application_id": settings.YA_APP_ID,
                }
+
     print("returning from index")
     return render(request, "home.html", context)
 
@@ -47,18 +48,24 @@ def delete_integration(request, integrationId=None):
     print("In delete_integration")
     print(integrationId)
     access_token_dict = YellowUserToken.objects.get(id=integrationId)
+    user_id = access_token_dict.user
+    if user_id == request.user.id:
+        access_token = access_token_dict.yellowant_token
+        user_integration_id = access_token_dict.yellowant_intergration_id
+        print(user_integration_id)
 
-    access_token = access_token_dict.yellowant_token
-    user_integration_id = access_token_dict.yellowant_intergration_id
-    print(user_integration_id)
+
+        yellowant_user = YellowAnt(access_token=access_token)
+        # print(yellowant_user)
+        # yellowant_integration_id = yellowant_user.yellowant_intergration_id
+        yellowant_user.delete_user_integration(id=user_integration_id)
+        user = YellowUserToken.objects.get(yellowant_token=access_token)
+        response_json = YellowUserToken.objects.get(yellowant_token=access_token).delete()
+        print(response_json)
+
+        return HttpResponse("successResponse", status=204)
+
+    else:
+        return HttpResponse("Not Authenticated", status=403)
 
 
-    yellowant_user = YellowAnt(access_token=access_token)
-    # print(yellowant_user)
-    # yellowant_integration_id = yellowant_user.yellowant_intergration_id
-    yellowant_user.delete_user_integration(id=user_integration_id)
-    user = YellowUserToken.objects.get(yellowant_token=access_token)
-    response_json = YellowUserToken.objects.get(yellowant_token=access_token).delete()
-    print(response_json)
-
-    return HttpResponse("successResponse", status=204)
