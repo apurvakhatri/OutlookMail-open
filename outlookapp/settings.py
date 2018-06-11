@@ -34,18 +34,20 @@ DEBUG = True
 
 BASE_HREF = "/"
 SITE_PROTOCOL = "http://"
-SITE_DOMAIN_URL = "ngrok.io"
+
 
 DEV_ENV = os.environ.get('ENV')
 if DEV_ENV=="DEV":
     OUTLOOK_CLIENT_ID = "f5fa45b4-0498-4ea4-9774-201deb5ffe77"
     OUTLOOK_CLIENT_SECRET = "scmgtTFJ2}zgJQTN3459{#)"
     BASE_URL = "https://ff5fb00d.ngrok.io/"
+    SITE_DOMAIN_URL = "ngrok.io"
 elif DEV_ENV=="HEROKU":
     BASE_URL = "https://{}.herokuapp.com/".format(app_name)
     OUTLOOK_CLIENT_ID = os.environ.get('OM_CLIENT_ID')
     OUTLOOK_CLIENT_SECRET = os.environ.get('OM_CLIENT_SECRET')
     app_name = os.environ.get("HEROKU_APP_NAME")
+    SITE_DOMAIN_URL = "herokuapp.com"
 
 OUTLOOK_REDIRECT_URL = BASE_URL + "outlookauthurl/"
 OUTLOOK_REDIRECT = BASE_URL + "outlookredirecttoken/"
