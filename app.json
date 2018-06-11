@@ -22,6 +22,9 @@
     "DISABLE_COLLECTSTATIC": {
       "required": false,
       "value": "1"
+    },
+    "ENV": {
+      "required": true
     }
 
   }

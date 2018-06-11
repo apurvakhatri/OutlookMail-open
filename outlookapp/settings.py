@@ -36,7 +36,7 @@ BASE_HREF = "/"
 SITE_PROTOCOL = "http://"
 SITE_DOMAIN_URL = "ngrok.io"
 
-
+DEV_ENV = os.environ.get('ENV')
 if DEV_ENV=="DEV":
     OUTLOOK_CLIENT_ID = "f5fa45b4-0498-4ea4-9774-201deb5ffe77"
     OUTLOOK_CLIENT_SECRET = "scmgtTFJ2}zgJQTN3459{#)"
