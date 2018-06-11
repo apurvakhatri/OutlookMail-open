@@ -90,6 +90,7 @@ def yellowantredirecturl(request):
                   access_token=None,
                   redirect_uri=settings.YA_REDIRECT_URL)
     access_token_dict = y.get_access_token(code)
+
     # print(y._get_error_message())
     # # print(y._last_call.status_code)
     # # print(y.get_lastfunction_header("status_code"))
