@@ -29,6 +29,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 BASE_URL = "https://c152c92f.ngrok.io/"
+BASE_HREF = ""
+SITE_PROTOCOL = "https://"
+SITE_DOMAIN_URL = "c152c92f.ngrok.io"
 
 
 OUTLOOK_CLIENT_ID = "f5fa45b4-0498-4ea4-9774-201deb5ffe77"

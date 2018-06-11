@@ -29,6 +29,7 @@ authority = 'https://login.microsoftonline.com'
 authorize_url = '{0}{1}'.format(authority, '/common/oauth2/v2.0/authorize?{0}')
 token_url = '{0}{1}'.format(authority, '/common/oauth2/v2.0/token')
 graph_endpoint = 'https://graph.microsoft.com/v1.0{0}'
+
 def make_api_call(method, url, token, payload=None, parameters=None):
     # Send these headers with all API calls
     headers = {'User-Agent': 'python_tutorial/1.0',
@@ -65,9 +66,10 @@ def redirectToYellowAntAuthenticationPage(request):
     # After clicking on 'authorize' the user will be taken to YA_REDIRECT_URL
     # along with YA_CLIENT_ID.
     print("In redirectToYellowAntAuthenticationPage")
+    subdomain = request.get_host().split('.')[0]
     user = User.objects.get(id=request.user.id)
     state = str(uuid.uuid4())
-    YellowAntRedirectState.objects.create(user=user.id, state=state)
+    YellowAntRedirectState.objects.create(user=user.id, state=state, subdomain=subdomain)
     return HttpResponseRedirect(
         "{}?state={}&client_id={}&response_type=code&redirect_url={}".format(settings.YA_OAUTH_URL,
                                                                              state,
@@ -79,9 +81,7 @@ def redirectToYellowAntAuthenticationPage(request):
 def yellowantredirecturl(request):
     # The code is extracted from request URL and it is used to get access token json.
     # The YA_REDIRECT_URL point to this function only
-    print("In yellowantredirecturl")
     code = request.GET.get('code')
-    print(code)
     state = request.GET.get("state")
     yellowant_redirect_state = YellowAntRedirectState.objects.get(state=state)
     user = yellowant_redirect_state.user
@@ -106,7 +106,8 @@ def yellowantredirecturl(request):
                                         yellowant_intergration_id=user_integration['user_application']
                                        )
 
-    return HttpResponseRedirect(settings.BASE_URL+"integrate_app?id={}".format(str(ut.id)))
+    return HttpResponseRedirect(settings.SITE_PROTOCOL +f"{yellowant_redirect_state.subdomain}." +
+                                settings.SITE_DOMAIN_URL + settings.BASE_HREF +f"integrate_app?id={ut.id}")
 
 def integrate_app_account(request):
     print("In integrate_app_account")
