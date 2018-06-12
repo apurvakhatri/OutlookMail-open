@@ -103,7 +103,7 @@ def yellowantredirecturl(request):
                                         yellowant_token=access_token,
                                         yellowant_id=profile['id'],
                                         yellowant_integration_invoke_name=user_integration["user_invoke_name"],
-                                        yellowant_intergration_id=user_integration['user_application']
+                                        yellowant_integration_id=user_integration['user_application']
                                        )
 
     return HttpResponseRedirect(settings.SITE_PROTOCOL +f"{yellowant_redirect_state.subdomain}." +
@@ -239,7 +239,7 @@ def webhook(request, hash_str=""):
         # message.data = data_obj
         yauser_integration_object = YellowAnt(access_token=ya_obj.yellowant_token)
         print("Reached here")
-        yauser_integration_object.create_webhook_message(requester_application=ya_obj.yellowant_intergration_id,
+        yauser_integration_object.create_webhook_message(requester_application=ya_obj.yellowant_integration_id,
                                                          webhook_name="inbox_webhook", **message.get_dict()
                                                         )
         return True

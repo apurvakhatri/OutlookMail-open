@@ -58,7 +58,7 @@ def yellowantredirecturl(request):
     user_integration = yellowant_user.create_user_integration()
     ut = YellowUserToken.objects.create(user=user, yellowant_token=access_token, yellowant_id=profile['id'],
                                         yellowant_integration_invoke_name=user_integration["user_invoke_name"],
-                                        yellowant_intergration_id=user_integration['user_application']
+                                        yellowant_integration_id=user_integration['user_application']
                                         )
 
     return HttpResponseRedirect("/integrate_app?id={}".format(str(ut.id)))

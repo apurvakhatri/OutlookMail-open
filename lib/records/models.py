@@ -9,7 +9,7 @@ class YellowUserToken(models.Model):
     yellowant_token = models.CharField(max_length=100)
     yellowant_id = models.IntegerField(default=0)
     yellowant_integration_invoke_name = models.CharField(max_length=100)
-    yellowant_intergration_id = models.IntegerField(default=0)
+    yellowant_integration_id = models.IntegerField(default=0)
     outlook_access_token = models.CharField(max_length=2048)
     subscription_id = models.CharField(max_length = 100, default="")
     outlook_refresh_token = models.CharField(max_length=2048)

@@ -51,13 +51,13 @@ def delete_integration(request, integrationId=None):
     user_id = access_token_dict.user
     if user_id == request.user.id:
         access_token = access_token_dict.yellowant_token
-        user_integration_id = access_token_dict.yellowant_intergration_id
+        user_integration_id = access_token_dict.yellowant_integration_id
         print(user_integration_id)
 
 
         yellowant_user = YellowAnt(access_token=access_token)
         # print(yellowant_user)
-        # yellowant_integration_id = yellowant_user.yellowant_intergration_id
+        # yellowant_integration_id = yellowant_user.yellowant_integration_id
         yellowant_user.delete_user_integration(id=user_integration_id)
         user = YellowUserToken.objects.get(yellowant_token=access_token)
         response_json = YellowUserToken.objects.get(yellowant_token=access_token).delete()

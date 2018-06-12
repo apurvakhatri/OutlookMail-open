@@ -80,12 +80,12 @@ def make_api_call(method, url, token, payload=None, parameters=None):
 
 class CommandCenter(object):
 
-    def __init__(self, yellowant_user_id, yellowant_intergration_id, function_name, args):
+    def __init__(self, yellowant_user_id, yellowant_integration_id, function_name, args):
         self.yellowant_user_id = yellowant_user_id
-        self.yellowant_intergration_id = yellowant_intergration_id
+        self.yellowant_integration_id = yellowant_integration_id
         self.function_name = function_name
         self.args = args
-        self.user_integration = YellowUserToken.objects.get(yellowant_intergration_id=self.yellowant_intergration_id)
+        self.user_integration = YellowUserToken.objects.get(yellowant_integration_id=self.yellowant_integration_id)
         self.access_token = self.user_integration.outlook_access_token
         self.refresh_token = self.user_integration.outlook_refresh_token
         self.last_update = self.user_integration.token_update
@@ -106,7 +106,7 @@ class CommandCenter(object):
         print("In parse")
 
         print(self.function_name)
-        self.user_integration = YellowUserToken.objects.get(yellowant_intergration_id=self.yellowant_intergration_id)
+        self.user_integration = YellowUserToken.objects.get(yellowant_integration_id=self.yellowant_integration_id)
         self.access_token = self.user_integration.outlook_access_token
         print("123")
 
@@ -116,7 +116,7 @@ class CommandCenter(object):
             print(token)
             access_token = token['access_token']
             refresh_token = token['refresh_token']
-            YellowUserToken.objects.filter(yellowant_intergration_id=self.yellowant_intergration_id). \
+            YellowUserToken.objects.filter(yellowant_integration_id=self.yellowant_integration_id). \
                 update(outlook_access_token=access_token, outlook_refresh_token= \
                 refresh_token, token_update=datetime.datetime.utcnow())
             self.refresh_token = refresh_token
@@ -222,7 +222,7 @@ class CommandCenter(object):
     def get_my_messages(self,args):
         """Returns the messages of the inbox folder"""
         print("In get_my_messages")
-        user_id = self.user_integration.yellowant_intergration_id
+        user_id = self.user_integration.yellowant_integration_id
 
 
         get_messages_url = graph_endpoint.format('/me/mailfolders/inbox/messages')
@@ -284,7 +284,7 @@ class CommandCenter(object):
                 button1.value = "forward"
                 button1.name = "forward"
                 button1.command = {
-                    "service_application": self.user_integration.yellowant_intergration_id,
+                    "service_application": self.user_integration.yellowant_integration_id,
                     "function_name": "forward_message",
                     "data": {
                         "Message-Id": str(obj["id"])
@@ -300,7 +300,7 @@ class CommandCenter(object):
                 button2.value = "Reply"
                 button2.name = "Reply"
                 button2.command = {
-                    "service_application": self.user_integration.yellowant_intergration_id,
+                    "service_application": self.user_integration.yellowant_integration_id,
                     "function_name": "reply",
                     "data": {
                         "Message-Id": str(obj["id"])
@@ -568,7 +568,7 @@ class CommandCenter(object):
     #     webhook_request = make_api_call('POST', get_wehbhook_url, self.access_token, payload=data)
     #     response_json = webhook_request.json()
     #     print(response_json["Id"])
-    #     YellowUserToken.objects.filter(yellowant_intergration_id = self.yellowant_intergration_id).update(subscription_id =
+    #     YellowUserToken.objects.filter(yellowant_integration_id = self.yellowant_integration_id).update(subscription_id =
     #                                                                                                       response_json["Id"] )
     #     return "Created"
 
