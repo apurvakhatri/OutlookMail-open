@@ -11,6 +11,6 @@ Go to YellowAnt developers page and click on Generate Developer Token to get "YA
 
 "OM_CLIENT_ID", "OM_CLIENT_SECRET" is to be obtained from microsoft developers account
 
-DO NOT ALTER - "DISABLE_COLLECTSTATIC" and "ENV"
+## DO NOT ALTER - "DISABLE_COLLECTSTATIC" and "ENV"
 
 
