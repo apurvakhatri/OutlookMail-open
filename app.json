@@ -25,6 +25,7 @@
     },
     "ENV": {
       "required": true
+      "value": "HEROKU"
     }
 
   }
