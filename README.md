@@ -16,6 +16,8 @@ Change "Redirect URLs" on microsoft developers account to "https://<appname>.her
 ## DO NOT ALTER - "DISABLE_COLLECTSTATIC" and "ENV"
 
 After deployment click on "View" and change the URL to /admin. Example: https://<app-name>.herokuapp.com/admin/
+
+
 Username: admin
 Password: pass
   
