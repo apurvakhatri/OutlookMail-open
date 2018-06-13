@@ -4,8 +4,8 @@ import datetime
 import pytz
 import requests
 from yellowant import YellowAnt
-from django.conf import settings
 from yellowant.messageformat import MessageClass, MessageAttachmentsClass, MessageButtonsClass, AttachmentFieldsClass
+from django.conf import settings
 from .models import YellowUserToken
 
 

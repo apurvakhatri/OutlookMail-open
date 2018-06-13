@@ -40,7 +40,7 @@ DEV_ENV = os.environ.get('ENV', 'DEV')
 if DEV_ENV=="DEV":
     OUTLOOK_CLIENT_ID = "f5fa45b4-0498-4ea4-9774-201deb5ffe77"
     OUTLOOK_CLIENT_SECRET = "scmgtTFJ2}zgJQTN3459{#)"
-    BASE_URL = "https://086a9121.ngrok.io/"
+    BASE_URL = "https://c6bb6ead.ngrok.io/"
     SITE_DOMAIN_URL = "ngrok.io"
 elif DEV_ENV=="HEROKU":
     BASE_URL = "https://{}.herokuapp.com/".format(app_name)

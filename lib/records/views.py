@@ -10,7 +10,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.conf import settings
 from django.contrib.auth.models import User
 from yellowant import YellowAnt
-from yellowant.messageformat import MessageClass
+from yellowant.messageformat import MessageClass, MessageAttachmentsClass, MessageButtonsClass, AttachmentFieldsClass
 from django.views.decorators.http import require_POST
 from django.views.decorators.csrf import csrf_exempt
 from .models import YellowUserToken, YellowAntRedirectState, AppRedirectState
@@ -215,7 +215,6 @@ def gettoken(request):
 def webhook(request, hash_str=""):
     print("Inside webhook")
     data = request.body
-    print(data)
     if len(data) == 0:
         validationToken = request.GET['validationtoken']
         try:
@@ -226,23 +225,67 @@ def webhook(request, hash_str=""):
             print("Error occured")
             return HttpResponse(status=400)
     else:
-        response_json = json.loads(data)
-        value_obj = response_json["value"]
-        value = value_obj[0]
-        SubscriptionId = value["SubscriptionId"]
         try:
-            ya_obj = YellowUserToken.objects.get(subscription_id=SubscriptionId)
+            message = MessageClass()
+            attachment = MessageAttachmentsClass()
+            response_json = json.loads(data)
+            value_obj = response_json["value"]
+            value = value_obj[0]
+            SubscriptionId = value["SubscriptionId"]
+            ResourceData = value["ResourceData"]
+            message_id = ResourceData["Id"]
+            ya_user = YellowUserToken.objects.get(subscription_id=SubscriptionId)
+            """Make a request to get the message details using message_id"""
+            get_message_details = graph_endpoint.format("/me/messages/{}".format(message_id))
+            webhook_request = make_api_call('GET', get_message_details, ya_user.outlook_access_token)
+            response_json = webhook_request.json()
+            subject = response_json["subject"]
+            from_user = response_json["from"]
+            email_address = from_user["emailAddress"]
+
+            attachment.title = "Subject"
+            attachment.text = str(subject)
+            message.attach(attachment)
+
+            button1 = MessageButtonsClass()
+            button1.text = "Forward"
+            button1.value = "forward"
+            button1.name = "forward"
+            button1.command = {
+                "service_application": ya_user.yellowant_integration_id,
+                "function_name": "forward_message",
+                "data": {
+                    "Message-Id": str(message_id)
+                },
+                "inputs": ["toRecipients", "Message"]
+            }
+            attachment.attach_button(button1)
+
+            button2 = MessageButtonsClass()
+            button2.text = "Reply"
+            button2.value = "Reply"
+            button2.name = "Reply"
+            button2.command = {
+                "service_application": ya_user.yellowant_integration_id,
+                "function_name": "reply",
+                "data": {
+                    "Message-Id": str(message_id)
+                },
+                "inputs": ["Message"]
+            }
+            attachment.attach_button(button2)
+
+            message.message_text = "Ola! You got a new E-mail from-" + email_address["name"] + "( " + email_address["address"] + " )"
+            yauser_integration_object = YellowAnt(access_token=ya_user.yellowant_token)
+            print("Reached here")
+            yauser_integration_object.create_webhook_message(requester_application=ya_user.yellowant_integration_id,
+                                                             webhook_name="inbox_webhook", **message.get_dict()
+                                                             )
+            return True
+
         except YellowUserToken.DoesNotExist:
             return HttpResponse("Not Authorized", status=403)
-        message = MessageClass()
-        message.message_text = "New Mail"
-        # message.data = data_obj
-        yauser_integration_object = YellowAnt(access_token=ya_obj.yellowant_token)
-        print("Reached here")
-        yauser_integration_object.create_webhook_message(requester_application=ya_obj.yellowant_integration_id,
-                                                         webhook_name="inbox_webhook", **message.get_dict()
-                                                        )
-        return True
+
 
 @csrf_exempt
 def yellowant_api(request):
