@@ -10,7 +10,13 @@ Go to YellowAnt developers page and click on Generate Developer Token to get "YA
 ![Screenshot](appname.png)
 
 "OM_CLIENT_ID", "OM_CLIENT_SECRET" is to be obtained from microsoft developers account
+Change "Redirect URLs" on microsoft developers account to "https://<appname>.herokuapp.com/outlookredirecttoken/"
 
 ## DO NOT ALTER - "DISABLE_COLLECTSTATIC" and "ENV"
 
+After deployment click on "View" and change the URL to /admin. Example: https://<app-name>.herokuapp.com/admin/
+  Username: admin
+  Password: pass
+  
+### We request the user to change the ID AND PASSWORD
 
