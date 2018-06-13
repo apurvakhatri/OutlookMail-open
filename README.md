@@ -10,6 +10,7 @@ Go to YellowAnt developers page and click on Generate Developer Token to get "YA
 ![Screenshot](appname.png)
 
 "OM_CLIENT_ID", "OM_CLIENT_SECRET" is to be obtained from microsoft developers account
+
 Change "Redirect URLs" on microsoft developers account to "https://<appname>.herokuapp.com/outlookredirecttoken/"
 
 ## DO NOT ALTER - "DISABLE_COLLECTSTATIC" and "ENV"
