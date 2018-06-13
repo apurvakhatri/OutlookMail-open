@@ -19,6 +19,7 @@ After deployment click on "View" and change the URL to /admin. Example: https://
 
 
 Username: admin
+
 Password: pass
   
 ### We request the user to change the ID AND PASSWORD
