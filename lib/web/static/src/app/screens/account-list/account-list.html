@@ -24,7 +24,7 @@
               <div><b>YellowAnt Invoke Name:</b> {{ ::account.user_invoke_name }}</div>
             </div>
             <a ng-if="!account.app_authenticated" md-button class="md-primary md-raised hidden-action-buttons"  ng-click="$ctrl.onDeleteAccount(account)">Delete</a>
-            <a ng-if="!account.app_authenticated" md-button class="md-primary md-raised hidden-action-buttons" ng-href="/integrate_app?id={{account.id}}" target="_self">Integrate</a>
+            <a ng-if="!account.app_authenticated" md-button class="md-primary md-raised hidden-action-buttons" ng-href="integrate_app?id={{account.id}}" target="_self">Integrate</a>
           </md-content>
         </md-card>
       </md-list-item>
