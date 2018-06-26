@@ -1,7 +1,7 @@
 {
-  "name": "bitbucketapp-client",
+  "name": "outlookapp-client",
   "version": "0.0.1",
-  "description": "YellowAnt Bitbucket App Client",
+  "description": "YellowAnt OutlookMail App Client",
   "main": "index.js",
   "author": "Manik Singh <manik@yellowant.com>",
   "license": "All Rights Reserved",
