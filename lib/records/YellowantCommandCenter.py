@@ -8,14 +8,12 @@ from yellowant.messageformat import MessageClass, MessageAttachmentsClass, Messa
 from django.conf import settings
 from .models import YellowUserToken
 
-
 scopes = ['openid',
           'User.Read',
-          'Mail.Read' ,
+          'Mail.Read',
           'offline_access',
           'Mail.ReadWrite',
-          'Mail.Send'
-        ]
+          'Mail.Send']
 
 authority = 'https://login.microsoftonline.com'
 authorize_url = '{0}{1}'.format(authority, '/common/oauth2/v2.0/authorize?{0}')
@@ -136,12 +134,12 @@ class CommandCenter(object):
                 "SubscriptionExpirationDateTime": start_time
             }
             r = make_api_call('PATCH', get_updatewehbhook_url, self.access_token, payload=data)
-            if(r.status_code == 200):
+            if r.status_code == 200:
                 print("Update json is:")
                 print(r.json())
                 print(r.status_code)
                 current_time = datetime.datetime.utcnow()
-                YellowUserToken.objects.filter(outlook_access_token = self.access_token).update(subscription_update = current_time)
+                YellowUserToken.objects.filter(outlook_access_token=self.access_token).update(subscription_update=current_time)
 
         return self.commands[self.function_name](self.args)
 
@@ -154,7 +152,7 @@ class CommandCenter(object):
             'values':[]
         }
         message = MessageClass()
-        if (r.status_code == 200):
+        if r.status_code == 200:
             obj = r.json()
             data = obj["value"]
             for i in range(0, len(data)):
@@ -178,7 +176,7 @@ class CommandCenter(object):
         r = make_api_call('GET', get_me_url, self.access_token)
         message = MessageClass()
         attachment = MessageAttachmentsClass()
-        if (r.status_code == requests.codes.ok):
+        if r.status_code == requests.codes.ok:
             print(r.json())
             obj = r.json()
 
@@ -219,12 +217,9 @@ class CommandCenter(object):
             print("else")
             return "{0}: {1}".format(r.status_code, r.text)
 
-    def get_my_messages(self,args):
+    def get_my_messages(self, args):
         """Returns the messages of the inbox folder"""
         print("In get_my_messages")
-        user_id = self.user_integration.yellowant_integration_id
-
-
         get_messages_url = graph_endpoint.format('/me/mailfolders/inbox/messages')
 
         # Use OData query parameters to control the results
@@ -236,11 +231,7 @@ class CommandCenter(object):
                             '$orderby': 'receivedDateTime DESC'}
 
         r = make_api_call('GET', get_messages_url, self.access_token, parameters=query_parameters)
-        get_compose_url = "https://graph.microsoft.com/v1.0/me/messages"
-        body_prev_request = make_api_call('GET', get_compose_url, self.access_token)
-
-
-        if (r.status_code == requests.codes.ok):
+        if r.status_code == requests.codes.ok:
 
             r_json = r.json()
             obj1 = r_json["value"]
@@ -249,7 +240,7 @@ class CommandCenter(object):
             for i in range(0, len(obj1)):
                 obj = obj1[i]
                 id = obj["id"]
-                bodyPreview = self.list_messages(args, id = id)
+                bodyPreview = self.list_messages(args, id=id)
 
                 attachment = MessageAttachmentsClass()
                 attachment.title = "Subject"
@@ -260,14 +251,14 @@ class CommandCenter(object):
                 field1.value = str(obj["receivedDateTime"])
                 attachment.attach_field(field1)
 
-                if(bodyPreview!=None):
+                if bodyPreview!=None:
                     field2 = AttachmentFieldsClass()
                     field2.title = "Body Preview"
                     field2.value = str(bodyPreview)
                     attachment.attach_field(field2)
 
                 from_obj = obj["from"]
-                for j in range(0,len(from_obj)):
+                for j in range(0, len(from_obj)):
                     emailAddress = from_obj["emailAddress"]
                     field3 = AttachmentFieldsClass()
                     field3.title = "From"
@@ -289,7 +280,7 @@ class CommandCenter(object):
                     "data": {
                         "Message-Id": str(obj["id"])
                     },
-                    "inputs": [ "toRecipients", "Message" ]
+                    "inputs": ["toRecipients", "Message"]
                 }
 
 
@@ -318,7 +309,7 @@ class CommandCenter(object):
             print(r.text)
             return "{0}: {1}".format(r.status_code, r.text)
 
-    def get_message_byfolder(self,args):
+    def get_message_byfolder(self, args):
         """This function returns the messages of a particular folder.
         The name of the folder is provided as input by the user.
         If the folder is Empty it returns 'Empty Folder' """
@@ -337,11 +328,11 @@ class CommandCenter(object):
         value = r.json()["value"]
         message = MessageClass()
 
-        if(len(value)==0):
+        if len(value) == 0:
             message.message_text = "Empty Folder"
             return message.to_json()
 
-        if (r.status_code == requests.codes.ok):
+        if r.status_code == requests.codes.ok:
             for i in range(0, len(value)):
                 obj = value[i]
 
@@ -357,7 +348,7 @@ class CommandCenter(object):
                 field1.value = str(obj["receivedDateTime"])
                 attachment.attach_field(field1)
 
-                if (bodyPreview != None):
+                if bodyPreview != None:
                     field2 = AttachmentFieldsClass()
                     field2.title = "Body Preview"
                     field2.value = str(bodyPreview)
@@ -380,7 +371,7 @@ class CommandCenter(object):
                 message.attach(attachment)
                 message.message_text = "messages are"
                 print("returning mailfolder")
-                if(i==len(value)-1):
+                if i == (len(value)-1):
                     return message.to_json()
                 else:
                     continue
@@ -415,17 +406,17 @@ class CommandCenter(object):
                     }
                 ]
             }
-            r = make_api_call('POST', get_compose_url, self.access_token, payload = data)
+            r = make_api_call('POST', get_compose_url, self.access_token, payload=data)
             print(r.status_code)
-            if (r.status_code == 201):
+            if r.status_code == 201:
                 r_json = r.json()
                 message_id = r_json["id"]
                 get_send_url = "https://graph.microsoft.com/v1.0/me/messages/{}/send".format(message_id)
                 r = make_api_call('POST', get_send_url, self.access_token)
                 print("sent is")
                 print(r.status_code)
-                if(r.status_code == 202):
-                    if(i==len(from_recepients)-1):
+                if r.status_code == 202:
+                    if i == (len(from_recepients)-1):
                         message = MessageClass()
                         message.message_text = "Sent Successfully"
                         return message.to_json()
@@ -443,15 +434,15 @@ class CommandCenter(object):
         print("In list_messages")
         get_compose_url = "https://graph.microsoft.com/v1.0/me/messages"
         r = make_api_call('GET', get_compose_url, self.access_token)
-        if (r.status_code == 200):
+        if r.status_code == 200:
             r_json = r.json()
             data = r_json["value"]
-            for i in range(0,len(data)):
+            for i in range(0, len(data)):
                 obj = data[i]
-                if(id == obj["id"]):
+                if id == obj["id"]:
                     return obj["bodyPreview"]
                 else:
-                    continue;
+                    continue
         else:
             return "{0}: {1}".format(r.status_code, r.text)
 
@@ -476,8 +467,8 @@ class CommandCenter(object):
                 ]
             }
             r = make_api_call('POST', get_forward_url, self.access_token, payload=data)
-            if(r.status_code == 202):
-                if (i == len(to_recepients) - 1):
+            if r.status_code == 202:
+                if i == (len(to_recepients) - 1):
                     message = MessageClass()
                     message.message_text = "Forwarded Successfully"
                     return message.to_json()
@@ -497,10 +488,9 @@ class CommandCenter(object):
             "comment": message
         }
         r = make_api_call('POST', get_reply_url, self.access_token, payload=data)
-        if (r.status_code == 202):
+        if r.status_code == 202:
             message = MessageClass()
             message.message_text = "Replied Successfully"
             return message.to_json()
         else:
             return "{0}: {1}".format(r.status_code, r.text)
-

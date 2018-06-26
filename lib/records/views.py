@@ -10,7 +10,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.conf import settings
 from django.contrib.auth.models import User
 from yellowant import YellowAnt
-from yellowant.messageformat import MessageClass, MessageAttachmentsClass, MessageButtonsClass, AttachmentFieldsClass
+from yellowant.messageformat import MessageClass, MessageAttachmentsClass, MessageButtonsClass
 from django.views.decorators.http import require_POST
 from django.views.decorators.csrf import csrf_exempt
 from .models import YellowUserToken, YellowAntRedirectState, AppRedirectState
@@ -85,15 +85,13 @@ def yellowantredirecturl(request):
     state = request.GET.get("state")
     yellowant_redirect_state = YellowAntRedirectState.objects.get(state=state)
     user = yellowant_redirect_state.user
+    print(settings.YA_REDIRECT_URL)
 
     y = YellowAnt(app_key=settings.YA_CLIENT_ID, app_secret=settings.YA_CLIENT_SECRET,
                   access_token=None,
                   redirect_uri=settings.YA_REDIRECT_URL)
     access_token_dict = y.get_access_token(code)
 
-    # print(y._get_error_message())
-    # # print(y._last_call.status_code)
-    # # print(y.get_lastfunction_header("status_code"))
     print(access_token_dict)
     access_token = access_token_dict['access_token']
     yellowant_user = YellowAnt(access_token=access_token)
@@ -247,11 +245,11 @@ def webhook(request, hash_str=""):
             attachment.text = str(subject)
             message.attach(attachment)
 
-            button1 = MessageButtonsClass()
-            button1.text = "Forward"
-            button1.value = "forward"
-            button1.name = "forward"
-            button1.command = {
+            forward_button = MessageButtonsClass()
+            forward_button.text = "Forward"
+            forward_button.value = "forward"
+            forward_button.name = "forward"
+            forward_button.command = {
                 "service_application": ya_user.yellowant_integration_id,
                 "function_name": "forward_message",
                 "data": {
@@ -259,13 +257,13 @@ def webhook(request, hash_str=""):
                 },
                 "inputs": ["toRecipients", "Message"]
             }
-            attachment.attach_button(button1)
+            attachment.attach_button(forward_button)
 
-            button2 = MessageButtonsClass()
-            button2.text = "Reply"
-            button2.value = "Reply"
-            button2.name = "Reply"
-            button2.command = {
+            reply_button = MessageButtonsClass()
+            reply_button.text = "Reply"
+            reply_button.value = "Reply"
+            reply_button.name = "Reply"
+            reply_button.command = {
                 "service_application": ya_user.yellowant_integration_id,
                 "function_name": "reply",
                 "data": {
@@ -273,7 +271,7 @@ def webhook(request, hash_str=""):
                 },
                 "inputs": ["Message"]
             }
-            attachment.attach_button(button2)
+            attachment.attach_button(reply_button)
 
             message.message_text = "Ola! You got a new E-mail from-" + email_address["name"] + "( " + email_address["address"] + " )"
             yauser_integration_object = YellowAnt(access_token=ya_user.yellowant_token)

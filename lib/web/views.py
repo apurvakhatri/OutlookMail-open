@@ -8,14 +8,7 @@ from django.conf import settings
 
 def index(request, path=""):
     print("in index")
-    context = {
-        "user_integrations": []
-    }
     if request.user.is_authenticated:
-        user_integrations = YellowUserToken.objects.filter(user=request.user.id)
-        # for user_integration in user_integrations:
-        #     print(user_integration)
-        #     context["user_integrations"].append(user_integration)
     context = {"base_href": settings.BASE_HREF,
                "application_id": settings.YA_APP_ID,
                }
@@ -30,7 +23,7 @@ def userdetails(request):
     if request.user.is_authenticated:
         user_integrations = YellowUserToken.objects.filter(user=request.user.id)
         for user_integration in user_integrations:
-            if(user_integration.outlook_access_token!=""):
+            if user_integration.outlook_access_token!="":
                 user_integrations_list.append({\
                 "user_invoke_name":user_integration.yellowant_integration_invoke_name,\
                 "id":user_integration.id, "app_authenticated":True\
@@ -54,12 +47,8 @@ def delete_integration(request, integrationId=None):
         user_integration_id = access_token_dict.yellowant_integration_id
         print(user_integration_id)
 
-
         yellowant_user = YellowAnt(access_token=access_token)
-        # print(yellowant_user)
-        # yellowant_integration_id = yellowant_user.yellowant_integration_id
         yellowant_user.delete_user_integration(id=user_integration_id)
-        user = YellowUserToken.objects.get(yellowant_token=access_token)
         response_json = YellowUserToken.objects.get(yellowant_token=access_token).delete()
         print(response_json)
 

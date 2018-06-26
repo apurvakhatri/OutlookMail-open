@@ -27,10 +27,10 @@ urlpatterns = [
     path('yellowantauthurl/', redirectToYellowAntAuthenticationPage),
     path('redirecturl/', yellowantredirecturl),
     path('outlookauthurl/', get_signin_url),
-    path('outlookredirect/',gettoken),
-    path('outlookredirecttoken/',gettoken),
-    path("integrate_app",integrate_app_account),
-    path("apiurl/",yellowant_api),
+    path('outlookredirect/', gettoken),
+    path('outlookredirecttoken/', gettoken),
+    path("integrate_app", integrate_app_account),
+    path("apiurl/", yellowant_api),
     url('webhook/(?P<hash_str>[^/]+)/$', webhook, name='webhook'),
     path('', include(web_urls))
 ]

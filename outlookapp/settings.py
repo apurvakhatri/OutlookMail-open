@@ -36,12 +36,12 @@ SITE_PROTOCOL = "http://"
 
 
 DEV_ENV = os.environ.get('ENV', 'DEV')
-if DEV_ENV=="DEV":
-    OUTLOOK_CLIENT_ID = ""
-    OUTLOOK_CLIENT_SECRET = ""
-    BASE_URL = "https://2eff3660.ngrok.io/"
+if DEV_ENV == "DEV":
+    OUTLOOK_CLIENT_ID = "f5fa45b4-0498-4ea4-9774-201deb5ffe77"
+    OUTLOOK_CLIENT_SECRET = "scmgtTFJ2}zgJQTN3459{#)"
+    BASE_URL = "https://59efbf61.ngrok.io/"
     SITE_DOMAIN_URL = "ngrok.io"
-elif DEV_ENV=="HEROKU":
+elif DEV_ENV == "HEROKU":
     BASE_URL = "https://{}.herokuapp.com/".format(app_name)
     OUTLOOK_CLIENT_ID = os.environ.get('OM_CLIENT_ID')
     OUTLOOK_CLIENT_SECRET = os.environ.get('OM_CLIENT_SECRET')
@@ -117,7 +117,7 @@ DATABASES = {
         'PORT': '',
     }
 }
-if DEV_ENV=="HEROKU":
+if DEV_ENV == "HEROKU":
     import dj_database_url
     db_from_env = dj_database_url.config()
     DATABASES['default'].update(db_from_env)

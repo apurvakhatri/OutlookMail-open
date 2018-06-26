@@ -1,6 +1,6 @@
 import os
-DEV_ENV=os.environ.get("ENV")
-if DEV_ENV=="HEROKU":
+DEV_ENV = os.environ.get("ENV")
+if DEV_ENV == "HEROKU":
     YA_DEVELOPER_TOKEN=os.environ.get("YA_DEVELOPER_TOKEN")
 
     base=os.environ.get("HEROKU_APP_NAME")
