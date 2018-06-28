@@ -34,12 +34,13 @@ DEBUG = True
 BASE_HREF = "/"
 SITE_PROTOCOL = "http://"
 
-
 DEV_ENV = os.environ.get('ENV', 'DEV')
 if DEV_ENV == "DEV":
-    OUTLOOK_CLIENT_ID = "f5fa45b4-0498-4ea4-9774-201deb5ffe77"
-    OUTLOOK_CLIENT_SECRET = "scmgtTFJ2}zgJQTN3459{#)"
-    BASE_URL = "https://fe22ffvrvrc17.ngrok.io/"
+    OUTLOOK_CLIENT_ID = "1ac528f3-cea9-47a7-b2d1-c0edc3ff7d81"
+    OUTLOOK_CLIENT_SECRET = "vua3278*ohldOGSVJZE9*+*"
+    # OUTLOOK_CLIENT_ID = "f5fa45b4-0498-4ea4-9774-201deb5ffe77"
+    # OUTLOOK_CLIENT_SECRET = "scmgtTFJ2}zgJQTN3459{#)"
+    BASE_URL = "https://b049808a.ngrok.io/"
     SITE_DOMAIN_URL = "ngrok.io"
 elif DEV_ENV == "HEROKU":
     BASE_URL = "https://{}.herokuapp.com/".format(app_name)

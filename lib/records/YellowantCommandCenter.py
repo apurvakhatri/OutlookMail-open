@@ -120,26 +120,27 @@ class CommandCenter(object):
             self.refresh_token = refresh_token
             self.access_token = access_token
 
-        if self.subscription_update + datetime.timedelta(minutes=57) < pytz.utc.localize(datetime.datetime.utcnow()):
-            graph_endpoint1 = "https://outlook.office.com/api/v2.0{}"
-            get_updatewehbhook_url = graph_endpoint1.format('/me/subscriptions/{}'.format(self.subscription_id))
+        if self.subscription_id != 401:
+            if self.subscription_update + datetime.timedelta(minutes=57) < pytz.utc.localize(datetime.datetime.utcnow()):
+                graph_endpoint1 = "https://outlook.office.com/api/v2.0{}"
+                get_updatewehbhook_url = graph_endpoint1.format('/me/subscriptions/{}'.format(self.subscription_id))
 
-            start_time = datetime.datetime.utcnow() + datetime.timedelta(minutes=4200)
-            list = str(start_time).split(" ")
-            first_word = list[0] + "T"
-            second_word = list[1] + "Z"
-            start_time = str(first_word + second_word)
-            data = {
-                "@odata.type":"#Microsoft.OutlookServices.PushSubscription",
-                "SubscriptionExpirationDateTime": start_time
-            }
-            r = make_api_call('PATCH', get_updatewehbhook_url, self.access_token, payload=data)
-            if r.status_code == 200:
-                print("Update json is:")
-                print(r.json())
-                print(r.status_code)
-                current_time = datetime.datetime.utcnow()
-                YellowUserToken.objects.filter(outlook_access_token=self.access_token).update(subscription_update=current_time)
+                start_time = datetime.datetime.utcnow() + datetime.timedelta(minutes=4200)
+                list = str(start_time).split(" ")
+                first_word = list[0] + "T"
+                second_word = list[1] + "Z"
+                start_time = str(first_word + second_word)
+                data = {
+                    "@odata.type":"#Microsoft.OutlookServices.PushSubscription",
+                    "SubscriptionExpirationDateTime": start_time
+                }
+                r = make_api_call('PATCH', get_updatewehbhook_url, self.access_token, payload=data)
+                if r.status_code == 200:
+                    print("Update json is:")
+                    print(r.json())
+                    print(r.status_code)
+                    current_time = datetime.datetime.utcnow()
+                    YellowUserToken.objects.filter(outlook_access_token=self.access_token).update(subscription_update=current_time)
 
         return self.commands[self.function_name](self.args)
 

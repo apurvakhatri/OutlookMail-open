@@ -150,7 +150,7 @@ def gettoken(request):
     state = request.GET.get("state")
     AR = AppRedirectState.objects.get(state=state)
     ut = AR.user_integration
-    print(auth_code)
+
     # Make a request to outlook for the access_token.
     post_data = {'grant_type': 'authorization_code',
                  'code': auth_code,
@@ -163,7 +163,7 @@ def gettoken(request):
     r = requests.post(token_url, data=post_data)
     # The response will contain token_type, scope, expires_in, ext_expires_in, access_token,
     # refresh_token, id_token
-    print(r.json())
+
     access_token_dict = r.json()
     # Now we are collecting the variables
     access_token = access_token_dict["access_token"]
@@ -178,7 +178,7 @@ def gettoken(request):
     hash_str = str(uuid4())
     hash_str = hash_str.replace("-", "")
     url = settings.BASE_URL + "webhook/" + hash_str + "/"
-    print(url)
+
     graph_endpoint = "https://outlook.office.com/api/v2.0{}"
     get_wehbhook_url = graph_endpoint.format('/me/subscriptions')
     start_time = datetime.datetime.utcnow()+ datetime.timedelta(minutes=4200)
@@ -187,9 +187,9 @@ def gettoken(request):
     first_word = list[0]+"T"
     second_word = list[1]+"Z"
     start_time = str(first_word + second_word)
-    print(start_time)
-    print(url)
-    print(start_time)
+
+
+
     data = {
         "@odata.type": "#Microsoft.OutlookServices.PushSubscription",
         "ChangeType": "created,updated",
@@ -199,10 +199,16 @@ def gettoken(request):
     }
     print("making api call")
     webhook_request = make_api_call('POST', get_wehbhook_url, access_token, payload=data)
-    response_json = webhook_request.json()
-    print(response_json)
-    YellowUserToken.objects.filter(outlook_access_token=access_token).update(subscription_id=response_json["Id"],
-                                                                             subscription_update=current_time)
+    print(webhook_request.status_code)
+    if webhook_request.status_code == 401:
+        YellowUserToken.objects.filter(outlook_access_token=access_token).update(subscription_id=401,
+                                                                                 subscription_update=current_time)
+    else:
+        response_json = webhook_request.json()
+        print(response_json)
+        print(webhook_request.status_code)
+        YellowUserToken.objects.filter(outlook_access_token=access_token).update(subscription_id=response_json["Id"],
+                                                                                 subscription_update=current_time)
 
     #End of subscription creation
 
