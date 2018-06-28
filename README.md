@@ -86,6 +86,8 @@ Example: ```"https://59efbf61.ngrok.io/admin/"```
 
 Step7: Go to ````"https://59efbf61.ngrok.io/"```, Add account and experience YellowAnt OutlookMail application at YellowAnt Bot on Slack.
 
+---
+
 # HEROKU DEPLOYMENT
 # OutlookMail
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
