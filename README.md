@@ -84,7 +84,7 @@ Log in to Django-admin at NGROK_URL + "/admin/"
 
 Example: ```"https://59efbf61.ngrok.io/admin/"```
 
-Step7: Go to ````"https://59efbf61.ngrok.io/"```, Add account and experience YellowAnt OutlookMail application at YellowAnt Bot on Slack.
+Step7: Go to ```"https://59efbf61.ngrok.io/"```, Add account and experience YellowAnt OutlookMail application at YellowAnt Bot on Slack.
 
 ---
 
