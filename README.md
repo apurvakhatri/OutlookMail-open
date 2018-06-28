@@ -4,9 +4,9 @@ Requirements:
 
 NGROK
 
-Account on Yellowant
+Account on [Yellowant](https://yellowant.com/)
 
-Microsoft Developer account
+[Microsoft](https://apps.dev.microsoft.com/) Developer account
 
 Steps to run the application on your system:
 
@@ -29,24 +29,28 @@ Step2:
 Change the BASE_URL, OUTLOOK_CLIENT_ID, OUTLOOK_CLIENT_SECRET in OutlookMail/outlookapp/settings.py
 
 (Line Number: 40) to OUTLOOK_CLIENT_ID + "/"
-Example : OUTLOOK_CLIENT_ID = "ffewfew5b4-0498-4ea4-9774-2efwwfe5ffe77"
+
+Example : ```OUTLOOK_CLIENT_ID = "ffewfew5b4-0498-4ea4-9774-2efwwfe5ffe77"```
 
 (Line Number: 41) to OUTLOOK_CLIENT_SECRET
-Example : OUTLOOK_CLIENT_SECRET = "scmgtTFJ2}zf214dc{#)"
+
+Example : ```OUTLOOK_CLIENT_SECRET = "scmgtTFJ2}zf214dc{#)"```
 
 (Line Number: 42) to NGROK url + "/"
-Example : BASE_URL = "https://59efbf61.ngrok.io/"
+
+Example : ```BASE_URL = "https://59efbf61.ngrok.io/"```
 
 Change api_url, redirect_uris in OutlookMail/yellowant_app.yaml
 
 (Line Number: 1) to api_url
-Example : api_url = "https://59efbf61.ngrok.io/apiurl/"
+
+Example : ```api_url = "https://59efbf61.ngrok.io/apiurl/"```
 
 (Line Number: 199) to redirect_uris
-Example : redirect_uris = "https://59efbf61.ngrok.io/redirecturl/"
 
-Change Redirect URLs on Microsoft Developer application to:
-"https://59efbf61.ngrok.io/outlookredirecttoken/"
+Example : ```redirect_uris = "https://59efbf61.ngrok.io/redirecturl/"```
+
+Change Redirect URLs on Microsoft Developer application to: ```"https://59efbf61.ngrok.io/outlookredirecttoken/"```
 
 Step3:
 
@@ -77,10 +81,10 @@ Run
 Step6:
 
 Log in to Django-admin at NGROK_URL + "/admin/"
-Example: "https://59efbf61.ngrok.io/admin/"
 
-Step7: Go to "https://59efbf61.ngrok.io/", Add account and experience YellowAnt OutlookMail application at YellowAnt Bot on Slack.
+Example: ```"https://59efbf61.ngrok.io/admin/"```
 
+Step7: Go to ````"https://59efbf61.ngrok.io/"```, Add account and experience YellowAnt OutlookMail application at YellowAnt Bot on Slack.
 
 # HEROKU DEPLOYMENT
 # OutlookMail
