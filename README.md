@@ -1,4 +1,4 @@
-The application is developed on Python3.
+The application is developed on Python3.6.
 
 Requirements:
 
@@ -14,7 +14,7 @@ Step1:
 
 Create a python virtual environment
 
-```python3 -m virtualenv env```
+```python3 -m virtualenv testapp```
 
 Activate the environment
 
@@ -30,11 +30,11 @@ Change the BASE_URL, OUTLOOK_CLIENT_ID, OUTLOOK_CLIENT_SECRET in OutlookMail/out
 
 (Line Number: 40) to OUTLOOK_CLIENT_ID + "/"
 
-Example : ```OUTLOOK_CLIENT_ID = "ffewfew5b4-0498-4ea4-9774-2efwwfe5ffe77"```
+Example : ```OUTLOOK_CLIENT_ID = "ddewfew5b4-0498-4ea4-9774-2efwwfe5ffe77"```
 
 (Line Number: 41) to OUTLOOK_CLIENT_SECRET
 
-Example : ```OUTLOOK_CLIENT_SECRET = "scmgtTFJ2}zf214dc{#)"```
+Example : ```OUTLOOK_CLIENT_SECRET = "pjuntgtTFJ2}zf214dc{#)"```
 
 (Line Number: 42) to NGROK url + "/"
 
