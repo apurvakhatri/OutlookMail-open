@@ -7,17 +7,8 @@ from django.conf import settings
 
 def index(request, path=""):
     print("in index")
-    context = {
-        "user_integrations": []
-    }
-    if request.user.is_authenticated:
-        user_integrations = YellowUserToken.objects.filter(user=request.user.id)
-        # for user_integration in user_integrations:
-        #     print(user_integration)
-        #     context["user_integrations"].append(user_integration)
     context = {"base_href": settings.BASE_HREF,
                "application_id": settings.YA_APP_ID,
-               "DJANGO_ENV": settings.DEV_ENV
                }
 
     print("returning from index")
